@@ -6,10 +6,10 @@ namespace identity_jwt.Models
     public class AppUser : IdentityUser
     {
         /// ApplicationUser inherits the class IdentityUser to add fields FirstName & LastName to User's Identity table in DB
-        [MaxLength(100)]
+        [MaxLength(200)]
         public string? FirstName { get; set; }
 
-        [MaxLength(100)]
+        [MaxLength(200)]
         public string? LastName { get; set; }
     }
 }

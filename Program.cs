@@ -19,7 +19,6 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     x => x.UseNetTopologySuite())
 );
 
-
 // Identity  
 builder.Services.AddIdentity<AppUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
