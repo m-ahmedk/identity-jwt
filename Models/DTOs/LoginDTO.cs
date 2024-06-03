@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace identity_jwt.DTOs
+namespace identity_jwt.Models.DTOs
 {
     public class LoginDTO
     {
