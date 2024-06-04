@@ -14,5 +14,13 @@ namespace identity_jwt.Controllers
             var employees = await Task.FromResult(new string[] { "ahmed", "adam", "bob" });
             return Ok(employees);
         }
+
+        [Route("test")]
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> TestAnonymous()
+        {
+            return Ok("This is accessible to public");
+        }
     }
 }
