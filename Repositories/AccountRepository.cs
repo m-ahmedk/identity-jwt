@@ -24,18 +24,22 @@ namespace identity_jwt.Repositories
         public async Task<ResponseDTO> RegisterAccount(RegisterDTO registerdto)
         {
             var isRegistered = await _userManager.FindByEmailAsync(registerdto.Email);
-            if (isRegistered is not null) 
-                return new ResponseDTO (false, "User is already registered");
+            if (isRegistered is not null)
+                return new ResponseDTO(false, "User is already registered");
 
             AppUser appUser = new AppUser()
             {
+                SecurityStamp = Guid.NewGuid().ToString(),
                 FirstName = registerdto.FirstName,
                 LastName = registerdto.LastName
             };
 
             var isUserResult = await _userManager.CreateAsync(appUser, registerdto.Password);
             if (!isUserResult.Succeeded)
-                return new ResponseDTO(false, "Unable to create user, please check details and try again");
+            {
+                var errors = isUserResult.Errors.Select(x => x.Code + ": " + x.Description).ToList();
+                return new ResponseDTO(false, $"Unable to create user, please see details:\n{string.Join("\n", errors)}");
+            }
 
             string role = "New User";
 
@@ -44,14 +48,15 @@ namespace identity_jwt.Repositories
 
             await _userManager.AddToRoleAsync(appUser, role);
             return new ResponseDTO(true, "User has been created successfully");
-;        }
+            ;
+        }
 
         public async Task<ResponseDTO> LoginAccount(LoginDTO logindto)
         {
             var user = await _userManager.FindByEmailAsync(logindto.Email);
 
             if (user == null)
-                return new ResponseDTO (false, "Invalid username");
+                return new ResponseDTO(false, "Invalid username");
 
             if (!await _userManager.CheckPasswordAsync(user, logindto.Password))
                 return new ResponseDTO(false, "Invalid password");

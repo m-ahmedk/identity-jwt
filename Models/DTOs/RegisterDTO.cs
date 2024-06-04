@@ -10,6 +10,9 @@ namespace identity_jwt.Models.DTOs
         [Required(ErrorMessage = "Last Name is required")]
         public string LastName { get; set; } = string.Empty;
 
+        [Required(ErrorMessage = "Username is required")]
+        public string Username { get; set; } = string.Empty;
+
         [Required(ErrorMessage = "Email is required")]
         [EmailAddress]
         public string Email { get; set; } = string.Empty;

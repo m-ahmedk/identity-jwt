@@ -15,10 +15,18 @@ namespace identity_jwt.Controllers
             return Ok(employees);
         }
 
-        [Route("test")]
+        [Route("test-anonymous")]
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> TestAnonymous()
+        {
+            return Ok("This is accessible to public");
+        }
+
+        [Authorize(Roles = "Admin")]
+        [Route("test-admin")]
+        [HttpGet]
+        public async Task<IActionResult> TestAdmin()
         {
             return Ok("This is accessible to public");
         }
