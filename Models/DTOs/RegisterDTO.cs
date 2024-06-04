@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace identity_jwt.DTOs
+namespace identity_jwt.Models.DTOs
 {
     public class RegisterDTO
     {
@@ -21,6 +21,6 @@ namespace identity_jwt.DTOs
         [Required(ErrorMessage = "Please confirm password")]
         [DataType(DataType.Password)]
         [Compare(nameof(Password))]
-        public string ConfirmPassword {  get; set; } = string.Empty;
+        public string ConfirmPassword { get; set; } = string.Empty;
     }
 }

@@ -1,5 +1,8 @@
 using identity_jwt.Data;
+using identity_jwt.Interfaces;
 using identity_jwt.Models;
+using identity_jwt.Repositories;
+using identity_jwt.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -47,6 +50,10 @@ builder.Services
         };
     });
 
+// Custom services
+builder.Services.AddTransient<IJwtService, JwtService>();
+builder.Services.AddTransient<IAccountRepository, AccountRepository>();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -64,6 +71,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication(); // authentication added
 
 app.UseAuthorization();
 
