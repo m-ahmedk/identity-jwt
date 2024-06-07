@@ -7,7 +7,7 @@ namespace identity_jwt.Mappings
     public class AutoMapperProfile : Profile
     {
         public AutoMapperProfile() {
-            CreateMap<RegisterDTO, AppUser>();
+            CreateMap<AppUser, RegisterDTO>().ReverseMap();
         }
     }
 }
