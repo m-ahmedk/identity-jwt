@@ -49,7 +49,7 @@ namespace identity_jwt.Controllers
 
                 var response = await _accountRepository.RegisterAccount(registerdto);
 
-                if(response.Message == null) return BadRequest(response.Message);
+                if(response.Message == null || response.IsSuccess == false) return BadRequest(response.Message);
 
                 return CreatedAtAction(nameof(Register), registerdto);
             }
