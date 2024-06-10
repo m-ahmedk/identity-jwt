@@ -28,17 +28,11 @@ namespace identity_jwt.Repositories
             if (isRegistered is not null)
                 return new ResponseDTO(false, "User is already registered");
 
-            //AppUser appUser = new AppUser()
-            //{
-            //    SecurityStamp = Guid.NewGuid().ToString(),
-            //    FirstName = registerdto.FirstName,
-            //    LastName = registerdto.LastName
-            //};
-
             var GetAppUser = _mapper.Map<AppUser>(registerdto);
+            System.Diagnostics.Debug.WriteLine(GetAppUser.SecurityStamp);
+            Console.WriteLine(GetAppUser.SecurityStamp);
             var isUserResult = await _userManager.CreateAsync(GetAppUser, registerdto.Password);
 
-            // var isUserResult = await _userManager.CreateAsync(appUser, registerdto.Password);
             if (!isUserResult.Succeeded)
             {
                 var errorMessages = isUserResult.Errors
@@ -58,10 +52,8 @@ namespace identity_jwt.Repositories
                 await _roleManager.CreateAsync(new IdentityRole(role));
 
             await _userManager.AddToRoleAsync(GetAppUser, role);
-            // await _userManager.AddToRoleAsync(appUser, role);
 
             return new ResponseDTO(true, "User has been created successfully");
-            ;
         }
 
         public async Task<ResponseDTO> LoginAccount(LoginDTO logindto)

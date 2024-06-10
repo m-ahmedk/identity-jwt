@@ -7,7 +7,9 @@ namespace identity_jwt.Mappings
     public class AutoMapperProfile : Profile
     {
         public AutoMapperProfile() {
-            CreateMap<AppUser, RegisterDTO>().ReverseMap();
+            CreateMap<RegisterDTO, AppUser>()
+                .AfterMap((src, dest) => dest.SecurityStamp = Guid.NewGuid().ToString())
+                .ReverseMap();
         }
     }
 }

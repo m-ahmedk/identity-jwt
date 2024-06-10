@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace identity_jwt.Models.DTOs
 {
@@ -25,5 +26,9 @@ namespace identity_jwt.Models.DTOs
         [DataType(DataType.Password)]
         [Compare(nameof(Password))]
         public string ConfirmPassword { get; set; } = string.Empty;
+
+        [JsonIgnore]
+        public string SecurityStamp { get; set; } = string.Empty;
+
     }
 }
